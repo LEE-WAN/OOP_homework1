@@ -12,17 +12,28 @@ import manager.ShelfManager;
 
 public abstract class Book implements Serializable, Rentable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3765761612414737642L;
+
 	public static enum BookType{
 		Novel,Comic,Magazine
 	};
 	public static enum Status{
 		Available,NotAvailable,Unknown
 	};
-	
+		
 	protected Map<String, Object> info = new HashMap<String, Object>();
 	int id;
 	
 
+	public void print(){
+		for(String str : info.keySet())
+			System.out.print(str + "\t" + info.get(str)+"\n");		
+		System.out.println();
+	}
+	
 	protected Book(String title, String author, int id){
 		this.id = id;
 		info.put("title", title);
@@ -78,6 +89,10 @@ public abstract class Book implements Serializable, Rentable {
 	public boolean isRented(){
 		if(getStatus()==Status.Available) return false;
 		return true;
+	}
+	
+	public BookType getType(){
+		return (BookType)info.get("type");
 	}
 
 	public String getTitle(){

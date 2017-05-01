@@ -11,6 +11,10 @@ import book.Book;
 import book.Rentable;
 
 public class User implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2573068999692993453L;
 	String username;
 	ArrayList<Rentable> rentedBook = new ArrayList<Rentable>();
 	int payedMoney=0;
@@ -29,7 +33,14 @@ public class User implements Serializable{
 	
 	public void printRentedBook(){
 		for(Rentable book : rentedBook)
-			System.out.println(book.toString());		
+			System.out.println("\t" + book.toString());		
+	}
+	
+	public int clacRentalFee(){
+		int charge = 0;
+		for(Rentable book : rentedBook)
+			charge += book.getRentalFee();		
+		return charge;
 	}
 	
 	public boolean returns(Rentable book){

@@ -14,6 +14,10 @@ import java.util.Map;
 import book.*;
 
 public class ShelfManager implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9157577130052596168L;
 	ArrayList<Book> shelf = new ArrayList<Book>();
 	int lastid=0;
 	public static Calendar today;
@@ -27,7 +31,12 @@ public class ShelfManager implements Serializable{
 	}
 	
 	public void print(){
-		
+		System.out.println("===========================서재 현황");
+		System.out.println("id\t종류\t상태\t\t제목\t\t\t작가");
+		for(Book book : shelf){
+			System.out.println( book.getId() +"\t" + book.getType().toString().substring(0,5) + "\t" + book.getStatus() +"\t" + book.getTitle() +"\t\t" + book.getAuthor());
+		}
+		System.out.println("===========================서재 현황");
 	}
 	
 	public Book getBook(String bookTitle){

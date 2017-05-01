@@ -14,10 +14,27 @@ import book.Rentable;
 import user.User;
 
 public class UserManager implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2873445505372213629L;
 	ArrayList<User> userList = new ArrayList<User>();
 	
 	public void print(){
-		
+		System.out.println("===========================대출 현황");
+		System.out.println("유저이름\t\t대출 권수");
+		for(User user : userList){
+			int num = user.getNumOfRentedBooks();
+			System.out.println(user.getUsername() + "\t\t" + num);
+			if(num!=0){
+				user.printRentedBook();
+			}			
+		}
+		System.out.println("===========================대출 현황");
+	}
+	
+	public int clacRentalFee(String userName){
+		return getUser(userName).clacRentalFee();		
 	}
 	
 	public boolean returns(String userName, Rentable book){
