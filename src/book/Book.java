@@ -10,7 +10,8 @@ import java.util.Map;
 import manager.ShelfManager;
 
 
-public abstract class Book implements Serializable {
+public abstract class Book implements Serializable, Rentable {
+
 	public static enum BookType{
 		Novel,Comic,Magazine
 	};
@@ -29,6 +30,7 @@ public abstract class Book implements Serializable {
 		info.put("status", Status.Available);
 	}
 	
+	@Override
 	public Boolean rentedBy(String username){
 		if(getStatus()!=Status.Available)return false;		
 		info.put("status", Status.NotAvailable);
@@ -36,7 +38,9 @@ public abstract class Book implements Serializable {
 		info.put("rentDay", ShelfManager.today);		
 		return true;
 	}
+	
 
+	@Override
 	public Boolean returnBy(String username){
 		if(username!=info.get("rentUser")) return false;
 		info.put("status", Status.Available);
@@ -45,6 +49,7 @@ public abstract class Book implements Serializable {
 		return true;
 	}
 	
+	@Override
 	public int getRentalFee(){
 		if((Status)info.get("status")==Status.Available)
 			return 0;
@@ -69,6 +74,7 @@ public abstract class Book implements Serializable {
 		return (Status)info.get("status");
 	}
 	
+	@Override
 	public boolean isRented(){
 		if(getStatus()==Status.Available) return false;
 		return true;
@@ -108,6 +114,7 @@ public abstract class Book implements Serializable {
 		out.writeObject(info);
 		out.writeInt(id);
 	}
+	
 	public void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException{
 		info = (Map<String, Object>)in.readObject();
 		id = in.readInt();

@@ -2,9 +2,12 @@ import java.util.Calendar;
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 import book.Book;
 import manager.ShelfManager;
+import manager.UserManager;
+import user.User;
 
 /**
  * @author 2016920036 이완해
@@ -12,9 +15,24 @@ import manager.ShelfManager;
  */
 public class main {
 	public static void main(String[] args) {
-		ShelfManager mgr = new ShelfManager();
+		ShelfManager shelfMgr = new ShelfManager();
+		UserManager userMgr = new UserManager();
 		
-		mgr = ShelfManager.load();
+		shelfMgr = ShelfManager.load();
+		userMgr = UserManager.load();
+		
+		//userMgr.addUser("A");
+		//userMgr.addUser("B");
+		//userMgr.save();
+		
+		for(;;){
+			Scanner sc = new Scanner(System.in);
+			System.out.println("오늘의 날짜는 " + ShelfManager.today.getTime().toString());
+			
+			sc.next();
+		}
+
+		
 		/*
 		mgr.addBook(Book.BookType.Comic, "도라에몽 장편시리즈 1", "후지코F후지오");
 		mgr.addBook(Book.BookType.Comic, "도라에몽 장편시리즈 2", "후지코F후지오");
