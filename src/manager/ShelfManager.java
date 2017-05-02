@@ -23,11 +23,6 @@ public class ShelfManager implements Serializable{
 	public static Calendar today;
 	
 	public ShelfManager(){
-		today = Calendar.getInstance();	
-		today.set(Calendar.HOUR_OF_DAY, 0);
-		today.set(Calendar.MINUTE, 0);
-		today.set(Calendar.SECOND, 0);
-		today.set(Calendar.MILLISECOND, 0);
 	}
 	
 	public void print(){
@@ -48,6 +43,8 @@ public class ShelfManager implements Serializable{
 	public Book getBook(int bookid){
 		for(Book book : shelf)
 			if(book.getId() == bookid) return book;
+		
+		System.err.println("존재하지 않는 id 입니다.");
 		return null;
 	}
 	
@@ -74,11 +71,9 @@ public class ShelfManager implements Serializable{
 		    tmp = (ShelfManager)in.readObject();
 		    in.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return null;
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return null;
 		}
 		return tmp;
 	}

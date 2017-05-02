@@ -43,17 +43,23 @@ public abstract class Book implements Serializable, Rentable {
 	
 	@Override
 	public Boolean rentedBy(String username){
-		if(getStatus()!=Status.Available)return false;		
+		if(getStatus()!=Status.Available){
+			System.err.println("이미 대출되어있는 책입니다.");
+			return false;		
+		}
 		info.put("status", Status.NotAvailable);
 		info.put("rentUser", username);
-		info.put("rentDay", ShelfManager.today);		
+		info.put("rentDay", ShelfManager.today.clone());		
 		return true;
 	}
 	
 
 	@Override
 	public Boolean returnBy(String username){
-		if(username!=info.get("rentUser")) return false;
+		if(username!=info.get("rentUser")){
+			System.err.println("다른유저가 빌린 책입니다.");
+			return false;
+		}
 		info.put("status", Status.Available);
 		info.remove("rentUser");
 		info.remove("rentDay");
@@ -109,12 +115,14 @@ public abstract class Book implements Serializable, Rentable {
 	
 	@Override
 	public String toString(){
-		String str = "";
+		String str = "id: ";
+		str += getId();
+		str += ",\t";
 		str += getTitle();
 		str += ",\t";
 		str += getAuthor();
 		if(isRented())
-			str += ",\tRented by: "+ info.get("rentUser") +"\t at: " + ((Calendar)info.get("rentDay")).getTime();		
+			str += ",\tRented by: "+ info.get("rentUser") +"\t at: " + ((Calendar)info.get("rentDay")).getTime() +"\t cost: " + getRentalFee();		
 		return str;
 	}
 	@Override

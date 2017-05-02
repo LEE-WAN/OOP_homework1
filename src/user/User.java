@@ -23,6 +23,10 @@ public class User implements Serializable{
 		this.username = username;
 	}
 	
+	public int getPayedMoney(){
+		return payedMoney;
+	}
+	
 	public String getUsername(){
 		return username;
 	}
@@ -45,17 +49,27 @@ public class User implements Serializable{
 	
 	public boolean returns(Rentable book){
 		int charge = book.getRentalFee();
-		if(rentedBook.contains(book))
+		if(rentedBook.contains(book)){
 			if(book.returnBy(username)){
 				rentedBook.remove(book);
 				payedMoney+=charge;
 				return true;
 			}
-		return false;
+			else
+				return false;
+		}
+		else{			
+			System.err.println("자신이 빌린 책이 아닙니다.");
+			return false;
+		}
+		
 	}
 	
 	public boolean rents(Rentable book){		
-		if(getNumOfRentedBooks()>=5)return false;
+		if(getNumOfRentedBooks()>=6){
+			System.err.println("대출가능한 권수는 최대 6권입니다.");
+			return false;
+		}
 		
 		if(book.rentedBy(username))
 			rentedBook.add(book);		

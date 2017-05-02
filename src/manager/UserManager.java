@@ -32,21 +32,44 @@ public class UserManager implements Serializable{
 		}
 		System.out.println("===========================대출 현황");
 	}
+	public void print(String userName){
+		System.out.println("===========================대출 현황");
+		for(User user : userList){
+			int num = user.getNumOfRentedBooks();
+			System.out.println(user.getUsername() + "\t\t" + num);
+			user.printRentedBook();			
+		}
+		System.out.println("===========================대출 현황");		
+	}
 	
 	public int clacRentalFee(String userName){
 		return getUser(userName).clacRentalFee();		
 	}
 	
 	public boolean returns(String userName, Rentable book){
+		if(book == null) return false;
 		User tmp;
-		if((tmp=this.getUser(userName))==null)return false;			
+		if((tmp=this.getUser(userName))==null){
+			System.err.println("존재하지 않는 유저입니다. \t" + userName);
+			return false;			
+		}
 		return tmp.returns(book);
 	}
 	
 	public boolean rents(String userName, Rentable book){
+		if(book == null) return false;
 		User tmp;
-		if((tmp=this.getUser(userName))==null)return false;		
+		if((tmp=this.getUser(userName))==null){
+			System.err.println("존재하지 않는 유저입니다.\t" + userName);
+			return false;		
+		}
 		return tmp.rents(book);
+	}
+	
+	public int getPayedMoney(String userName){
+		User tmp;
+		if((tmp=getUser(userName))!=null) return tmp.getPayedMoney();
+		else return 0;
 	}
 	
 	private User getUser(String userName){
@@ -73,10 +96,10 @@ public class UserManager implements Serializable{
 		    in.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return null;
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return null;
 		}
 		return tmp;
 	}
