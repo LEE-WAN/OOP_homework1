@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import book.Book;
 import book.Rentable;
@@ -21,7 +23,9 @@ public class UserManager implements Serializable{
 	ArrayList<User> userList = new ArrayList<User>();
 	
 	public void print(){
-		System.out.println("===========================대출 현황");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+
+		System.out.println("===========================대출 현황" + format.format(ShelfManager.today.getTime()));
 		System.out.println("유저이름\t\t대출 권수");
 		for(User user : userList){
 			int num = user.getNumOfRentedBooks();
@@ -33,7 +37,8 @@ public class UserManager implements Serializable{
 		System.out.println("===========================대출 현황");
 	}
 	public void print(String userName){
-		System.out.println("===========================대출 현황");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+		System.out.println("===========================대출 현황" + format.format(ShelfManager.today.getTime()));
 		for(User user : userList){
 			int num = user.getNumOfRentedBooks();
 			System.out.println(user.getUsername() + "\t\t" + num);

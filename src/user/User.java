@@ -16,6 +16,11 @@ public class User implements Serializable{
 	 */
 	private static final long serialVersionUID = 2573068999692993453L;
 	String username;
+	
+	/**
+	 * Rentable 인터페이스만 만족하면 어떤 오브젝트던 빌릴수 있음.
+	 * 책을 빌리면 (Rentable).rentedBy(userName)을 호출하고 rentedBook 에 저장해 놓는 방식.
+	 */
 	ArrayList<Rentable> rentedBook = new ArrayList<Rentable>();
 	int payedMoney=0;
 	

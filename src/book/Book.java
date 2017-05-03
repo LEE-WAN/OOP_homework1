@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,13 +28,21 @@ public abstract class Book implements Serializable, Rentable {
 	protected Map<String, Object> info = new HashMap<String, Object>();
 	int id;
 	
-
+	/**
+	 * info에 저장되있는 key와 내용을 전부 출력
+	 */
 	public void print(){
 		for(String str : info.keySet())
 			System.out.print(str + "\t" + info.get(str)+"\n");		
 		System.out.println();
 	}
 	
+	/**
+	 * 생성자, Comic Novel Magazine 객체에서만 불러올수 있음
+	 * @param title
+	 * @param author
+	 * @param id
+	 */
 	protected Book(String title, String author, int id){
 		this.id = id;
 		info.put("title", title);
@@ -41,6 +50,9 @@ public abstract class Book implements Serializable, Rentable {
 		info.put("status", Status.Available);
 	}
 	
+	/**
+	 * 책 대출하는 메소드. user이름이 필요
+	 */
 	@Override
 	public Boolean rentedBy(String username){
 		if(getStatus()!=Status.Available){
@@ -54,6 +66,9 @@ public abstract class Book implements Serializable, Rentable {
 	}
 	
 
+	/**
+	 * 책 반납하는 메소드 user이름과 일치하지 않으면 진행 안됨
+	 */
 	@Override
 	public Boolean returnBy(String username){
 		if(username!=info.get("rentUser")){
@@ -66,6 +81,9 @@ public abstract class Book implements Serializable, Rentable {
 		return true;
 	}
 	
+	/**
+	 * 대출 요금을 계산하는 메소드.
+	 */
 	@Override
 	public int getRentalFee(){
 		if((Status)info.get("status")==Status.Available)
@@ -115,6 +133,8 @@ public abstract class Book implements Serializable, Rentable {
 	
 	@Override
 	public String toString(){
+		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+
 		String str = "id: ";
 		str += getId();
 		str += ",\t";
@@ -122,7 +142,7 @@ public abstract class Book implements Serializable, Rentable {
 		str += ",\t";
 		str += getAuthor();
 		if(isRented())
-			str += ",\tRented by: "+ info.get("rentUser") +"\t at: " + ((Calendar)info.get("rentDay")).getTime() +"\t cost: " + getRentalFee();		
+			str += ",\tRented by: "+ info.get("rentUser") +"\t at: " + format.format(((Calendar)info.get("rentDay")).getTime()) +"\t cost: " + getRentalFee();		
 		return str;
 	}
 	@Override

@@ -51,6 +51,10 @@ public class main {
 			clearScreen();
 			
 			if(userName.equals("admin"))adminMenu(shelfMgr, userMgr, userName, sc);
+			else if(userName.equals("save")){
+				userMgr.save();
+				shelfMgr.save();
+			}
 			else{
 				if(!userMgr.addUser(userName)) System.out.println("돌아오신것을 환영합니다.");
 				else System.out.println("새로 가입하신것을 환영합니다.");
@@ -68,6 +72,7 @@ public class main {
 			System.out.println("\t 3.대출 현황 보기");
 			System.out.println("\t 4.로그아웃");
 			System.out.println("\t 0.내일로 가기");
+			sc.next();
 		}		
 	}
 
