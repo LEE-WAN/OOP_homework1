@@ -66,6 +66,7 @@ public class main {
 	static void adminMenu(ShelfManager shelfMgr, UserManager userMgr, String userName, Scanner sc){
 		boolean getOutOfLoop = false;
 		while(!getOutOfLoop){
+			//구현 안됨
 			System.out.println("무엇을 하시겠습니까?");
 			System.out.println("\t 1.책 추가하기");
 			System.out.println("\t 2.책 삭제하기");

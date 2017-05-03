@@ -39,11 +39,12 @@ public class UserManager implements Serializable{
 	public void print(String userName){
 		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
 		System.out.println("===========================대출 현황" + format.format(ShelfManager.today.getTime()));
-		for(User user : userList){
-			int num = user.getNumOfRentedBooks();
-			System.out.println(user.getUsername() + "\t\t" + num);
-			user.printRentedBook();			
-		}
+		for(User user : userList)
+			if(user.getUsername().equals(userName)){
+				int num = user.getNumOfRentedBooks();
+				System.out.println(user.getUsername() + "\t\t" + num);
+				user.printRentedBook();			
+			}
 		System.out.println("===========================대출 현황");		
 	}
 	
